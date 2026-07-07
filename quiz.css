@@ -29,12 +29,22 @@ body{
     margin-top: 20px;
 }
 
-.question{
-    background: #f8fafc;
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin-top: 20px;
-    border-radius: 10px;
+.quiz-item{
+    background:rgb(255, 247, 247);
+    border-left:6px solid rgb(144, 175, 241);
+    border-radius:12px;
+    padding:20px;
+    margin:20px 0;
+    
+}
+
+.quiz-item h3{
+    margin-bottom:10px;
+}
+
+.quiz-item label{
+    display:inline-block;
+    margin:8px 0;
 }
 
 .question-title{
@@ -52,15 +62,14 @@ body{
 
 #submitBtn{
     margin-top: 25px;
-    width: 100%;
+    width: 24%;
     padding: 12px;
     border: none;
     border-radius: 8px;
-    background: #2563eb;
+    background: #557ad1;
     color: white;
     font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
+   
 }
 
 #submitBtn:hover{
