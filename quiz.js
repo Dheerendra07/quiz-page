@@ -59,15 +59,29 @@ function handleOptionChange(questionIndex, selectedOption) {
 }
 function submitQuiz() {
   let score = 0;
-  console.log("Quiz Data on Submit:", quizData);
-  quizData.forEach((item, index) => {
+
+  quizData.forEach((item) => {
     if (item.selectedOption === item.answer) {
       score++;
     }
-    console.log("Your total score is:", score);
+  });
+
+  console.log("Your total score is:", score);
+
+  result.innerHTML = `
+    <h2> Quiz Completed!</h2>
+    <p>You scored <strong>${score}</strong> out of <strong>${quizData.length}</strong>.</p>
+  `;
+
+  Swal.fire({
+    title: "Quiz Completed!",
+    text: `Your score is ${score} out of ${quizData.length}`,
+    icon: "success",
+    confirmButtonText: "Close",
   });
 }
 const quizContainer = document.getElementById("quizContainer");
+const result = document.getElementById("result");
 console.log("Quiz Data:", quizContainer);
 quizContainer.innerHTML = quizData
   .map((item, index) => {

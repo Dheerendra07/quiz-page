@@ -1,16 +1,27 @@
 body{
-    font-family: Arial;
-    background: lightblue;
-    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #dbeafe;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+.card{
+    width: 700px;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 #title{
     text-align: center;
+    color: #1d4ed8;
     margin-bottom: 20px;
-    color: darkblue;
 }
 
 .intro{
+    color: #555;
     margin-bottom: 10px;
 }
 
@@ -19,16 +30,16 @@ body{
 }
 
 .question{
-    background: white;
-    border: 1px solid black;
+    background: #f8fafc;
+    border: 1px solid #ddd;
     padding: 15px;
     margin-top: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .question-title{
+    color: #15803d;
     margin-bottom: 10px;
-    color: darkgreen;
 }
 
 .option{
@@ -40,12 +51,25 @@ body{
 }
 
 #submitBtn{
-    margin-top: 20px;
-    padding: 10px 20px;
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
     cursor: pointer;
+    transition: 0.3s;
+}
+
+#submitBtn:hover{
+    background: #1d4ed8;
 }
 
 #result{
     margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
     font-weight: bold;
 }
