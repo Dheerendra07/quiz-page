@@ -6,22 +6,28 @@
 </head>
 <body>
 
-    <h1 id="title">Hello, Let's play simple quiz</h1>
+    <div class="card">
 
-    <p class="intro">Welcome to the quiz!</p>
+        <h1 id="title">Hello, Let's play simple quiz</h1>
 
-    <p class="intro">
-        You can select only one option in each question and choose carefully.
-    </p>
+        <p class="intro">Welcome to the quiz!</p>
 
-    
-    <div id="quizContainer"></div>
+        <p class="intro">
+            You can select only one option in each question and choose carefully.
+        </p>
 
-    <button id="submitBtn" onclick="submitQuiz()">Submit Quiz</button>
+        <div id="quizContainer"></div>
 
-    <p id="result"></p>
+        <button id="submitBtn" onclick="submitQuiz()">
+            Submit Quiz
+        </button>
 
-    <script src="quiz.js"></script>
+        <p id="result"></p>
+
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="quiz.js"></script>
 
 </body>
 </html>
