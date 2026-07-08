@@ -67,19 +67,35 @@ function submitQuiz() {
   });
 
   console.log("Your total score is:", score);
-
+  const percentage = (score / quizData.length) * 100;
   result.innerHTML = `
     <h2> Quiz Completed!</h2>
     <p>You scored <strong>${score}</strong> out of <strong>${quizData.length}</strong>.</p>
   `;
+  if (percentage >= 80) {
+    Swal.fire({
+      title: "Congratulations!",
+      text: `Your score is ${score} out of ${quizData.length}. You passed the quiz!`,
+      icon: "success",
+      confirmButtonText: "Awesome!",
+    });
+  } else if (percentage >= 60) {
+    Swal.fire({
+      title: "Good Job!",
+      text: `Your score is ${score} out of ${quizData.length}. You did well!`,
+      icon: "info",
+      confirmButtonText: "Continue",
+    });
+  } else {
+    Swal.fire({
+      title: "Keep Trying!",
+      text: `Your score is ${score} out of ${quizData.length}. Better luck next time!`,
+      icon: "warning",
+      confirmButtonText: "Try Again",
+    });
+  }
+} 
 
-  Swal.fire({
-    title: "Quiz Completed!",
-    text: `Your score is ${score} out of ${quizData.length}`,
-    icon: "success",
-    confirmButtonText: "Close",
-  });
-}
 const quizContainer = document.getElementById("quizContainer");
 const result = document.getElementById("result");
 console.log("Quiz Data:", quizContainer);
