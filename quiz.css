@@ -1,4 +1,4 @@
-body{
+body {
     font-family: Arial, sans-serif;
     background: #dbeafe;
     display: flex;
@@ -6,61 +6,60 @@ body{
     padding: 40px;
 }
 
-.card{
+.card {
     width: 700px;
     background: white;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-#title{
+#title {
     text-align: center;
     color: #1d4ed8;
     margin-bottom: 20px;
 }
 
-.intro{
+.intro {
     color: #555;
     margin-bottom: 10px;
 }
 
-#quizContainer{
+#quizContainer {
     margin-top: 20px;
 }
 
-.quiz-item{
-    background:rgb(255, 247, 247);
-    border-left:6px solid rgb(144, 175, 241);
-    border-radius:12px;
-    padding:20px;
-    margin:20px 0;
-    
+.quiz-item {
+    background: rgb(255, 247, 247);
+    border-left: 6px solid rgb(144, 175, 241);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
 }
 
-.quiz-item h3{
-    margin-bottom:10px;
+.quiz-item h3 {
+    margin-bottom: 10px;
 }
 
-.quiz-item label{
-    display:inline-block;
-    margin:8px 0;
+.quiz-item label {
+    display: inline-block;
+    margin: 8px 0;
 }
 
-.question-title{
+.question-title {
     color: #15803d;
     margin-bottom: 10px;
 }
 
-.option{
+.option {
     margin-top: 8px;
 }
 
-.option-label{
+.option-label {
     margin-left: 5px;
 }
 
-#submitBtn{
+#submitBtn {
     margin-top: 25px;
     width: 24%;
     padding: 12px;
@@ -69,14 +68,14 @@ body{
     background: #557ad1;
     color: white;
     font-size: 16px;
-   
+    cursor: pointer;
 }
 
-#submitBtn:hover{
+#submitBtn:hover {
     background: #1d4ed8;
 }
 
-#result{
+#result {
     margin-top: 20px;
     text-align: center;
     font-size: 18px;
