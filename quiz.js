@@ -50,14 +50,14 @@ const quizData = [
     answer: "Kolkata",
   },
 ];
-function handleOptionChange(questionIndex, selectedOption) {
+function _handleOptionChange(questionIndex, selectedOption) {
   const question = quizData[questionIndex];
   question.selectedOption = selectedOption;
   console.log(
     `Question ${questionIndex + 1} selected option: ${selectedOption}`,
   );
 }
-function submitQuiz() {
+function _submitQuiz() {
   let score = 0;
 
   quizData.forEach((item) => {
@@ -107,7 +107,7 @@ quizContainer.innerHTML = quizData
       ${item.options
         .map(
           (option, optionIndex) => `
-      <input type="radio" id="option${optionIndex + 1}-${index}" name="question${index}" value="${option}" onChange="handleOptionChange(${index}, '${option}')" />
+      <input type="radio" id="option${optionIndex + 1}-${index}" name="question${index}" value="${option}" onChange="_handleOptionChange(${index}, '${option}')" />
       <label for="option${optionIndex + 1}-${index}">${option}</label><br>
       `,
         )
