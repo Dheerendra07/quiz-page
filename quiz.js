@@ -50,13 +50,16 @@ const quizData = [
     answer: "Kolkata",
   },
 ];
+
 function handleOptionChange(questionIndex, selectedOption) {
   const question = quizData[questionIndex];
   question.selectedOption = selectedOption;
+
   console.log(
     `Question ${questionIndex + 1} selected option: ${selectedOption}`,
   );
 }
+
 function submitQuiz() {
   let score = 0;
 
@@ -67,11 +70,17 @@ function submitQuiz() {
   });
 
   console.log("Your total score is:", score);
+
   const percentage = (score / quizData.length) * 100;
+
   result.innerHTML = `
-    <h2> Quiz Completed!</h2>
-    <p>You scored <strong>${score}</strong> out of <strong>${quizData.length}</strong>.</p>
+    <h2>Quiz Completed!</h2>
+    <p>
+      You scored <strong>${score}</strong> out of
+      <strong>${quizData.length}</strong>.
+    </p>
   `;
+
   if (percentage >= 80) {
     Swal.fire({
       title: "Congratulations!",
@@ -86,35 +95,58 @@ function submitQuiz() {
       icon: "info",
       confirmButtonText: "Continue",
     });
-  } else {
-    Swal.fire({
-      title: "Keep Trying!",
-      text: `Your score is ${score} out of ${quizData.length}. Better luck next time!`,
-      icon: "warning",
-      confirmButtonText: "Try Again",
-    });
   }
-} 
+  Swal.fire({
+    title: "Keep Trying!",
+    text: `Your score is ${score} out of ${quizData.length}. Better luck next time!`,
+    icon: "warning",
+    confirmButtonText: "Try Again",
+  }).then(() => {
+    resetQuiz();
+  });
+}
+
+function resetQuiz() {
+  quizData.forEach((question) => {
+    delete question.selectedOption;
+  });
+
+  document.querySelectorAll('input[type="radio"]').forEach((radio) => {
+    radio.checked = false;
+  });
+
+  result.innerHTML = "";
+}
 
 const quizContainer = document.getElementById("quizContainer");
 const result = document.getElementById("result");
+
 console.log("Quiz Data:", quizContainer);
+
 quizContainer.innerHTML = quizData
   .map((item, index) => {
     return `
-    <div class="quiz-item">
-      <h3>Q${index + 1}: ${item.question}</h3>
-      ${item.options
-        .map(
-          (option, optionIndex) => `
-      <input type="radio" id="option${optionIndex + 1}-${index}" name="question${index}" value="${option}" onChange="handleOptionChange(${index}, '${option}')" />
-      <label for="option${optionIndex + 1}-${index}">${option}</label><br>
-      `,
-        )
-        .join("")}
-    
-      
-    </div>
-  `;
+      <div class="quiz-item">
+        <h3>Q${index + 1}: ${item.question}</h3>
+
+        ${item.options
+          .map(
+            (option, optionIndex) => `
+              <input
+                type="radio"
+                id="option${optionIndex + 1}-${index}"
+                name="question${index}"
+                value="${option}"
+                onchange="handleOptionChange(${index}, '${option}')"
+              />
+              <label for="option${optionIndex + 1}-${index}">
+                ${option}
+              </label>
+              <br>
+            `,
+          )
+          .join("")}
+      </div>
+    `;
   })
   .join("");
