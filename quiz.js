@@ -50,6 +50,7 @@ const quizData = [
     answer: "Kolkata",
   },
 ];
+
 function handleOptionChange(questionIndex, selectedOption) {
   const question = quizData[questionIndex];
   question.selectedOption = selectedOption;
@@ -58,6 +59,7 @@ function handleOptionChange(questionIndex, selectedOption) {
     `Question ${questionIndex + 1} selected option: ${selectedOption}`,
   );
 }
+
 function submitQuiz() {
   let score = 0;
 
@@ -66,6 +68,21 @@ function submitQuiz() {
       score++;
     }
   });
+
+  function resetQuiz() {
+    // Selected options remove
+    quizData.forEach((question) => {
+      delete question.selectedOption;
+    });
+
+    // Radio buttons uncheck
+    document.querySelectorAll('input[type="radio"]').forEach((radio) => {
+      radio.checked = false;
+    });
+
+    // Result clear
+    result.innerHTML = "";
+  }
 
   console.log("Your total score is:", score);
 
@@ -93,29 +110,17 @@ function submitQuiz() {
       icon: "info",
       confirmButtonText: "Continue",
     });
+  } else {
+    Swal.fire({
+      title: "Keep Trying!",
+      text: `Your score is ${score} out of ${quizData.length}. Better luck next time!`,
+      icon: "warning",
+      confirmButtonText: "Try Again",
+    }).then(() => {
+      resetQuiz();
+    });
   }
-  Swal.fire({
-    title: "Keep Trying!",
-    text: `Your score is ${score} out of ${quizData.length}. Better luck next time!`,
-    icon: "warning",
-    confirmButtonText: "Try Again",
-  }).then(() => {
-    resetQuiz();
-  });
 }
-
-function resetQuiz() {
-  quizData.forEach((question) => {
-    delete question.selectedOption;
-  });
-
-  document.querySelectorAll('input[type="radio"]').forEach((radio) => {
-    radio.checked = false;
-  });
-
-  result.innerHTML = "";
-}
-
 const quizContainer = document.getElementById("quizContainer");
 const result = document.getElementById("result");
 
@@ -124,19 +129,27 @@ console.log("Quiz Data:", quizContainer);
 quizContainer.innerHTML = quizData
   .map((item, index) => {
     return `
-    <div class="quiz-item">
-      <h3>Q${index + 1}: ${item.question}</h3>
-      ${item.options
-        .map(
-          (option, optionIndex) => `
-      <input type="radio" id="option${optionIndex + 1}-${index}" name="question${index}" value="${option}" onChange="handleOptionChange(${index}, '${option}')" />
-      <label for="option${optionIndex + 1}-${index}">${option}</label><br>
-      `,
-        )
-        .join("")}
-    
-      
-    </div>
-  `;
+      <div class="quiz-item">
+        <h3>Q${index + 1}: ${item.question}</h3>
+
+        ${item.options
+          .map(
+            (option, optionIndex) => `
+              <input
+                type="radio"
+                id="option${optionIndex + 1}-${index}"
+                name="question${index}"
+                value="${option}"
+                onchange="handleOptionChange(${index}, '${option}')"
+              />
+              <label for="option${optionIndex + 1}-${index}">
+                ${option}
+              </label>
+              <br>
+            `,
+          )
+          .join("")}
+      </div>
+    `;
   })
   .join("");
