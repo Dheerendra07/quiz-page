@@ -50,7 +50,6 @@ const quizData = [
     answer: "Kolkata",
   },
 ];
-
 function handleOptionChange(questionIndex, selectedOption) {
   const question = quizData[questionIndex];
   question.selectedOption = selectedOption;
@@ -59,7 +58,6 @@ function handleOptionChange(questionIndex, selectedOption) {
     `Question ${questionIndex + 1} selected option: ${selectedOption}`,
   );
 }
-
 function submitQuiz() {
   let score = 0;
 
@@ -126,27 +124,19 @@ console.log("Quiz Data:", quizContainer);
 quizContainer.innerHTML = quizData
   .map((item, index) => {
     return `
-      <div class="quiz-item">
-        <h3>Q${index + 1}: ${item.question}</h3>
-
-        ${item.options
-          .map(
-            (option, optionIndex) => `
-              <input
-                type="radio"
-                id="option${optionIndex + 1}-${index}"
-                name="question${index}"
-                value="${option}"
-                onchange="handleOptionChange(${index}, '${option}')"
-              />
-              <label for="option${optionIndex + 1}-${index}">
-                ${option}
-              </label>
-              <br>
-            `,
-          )
-          .join("")}
-      </div>
-    `;
+    <div class="quiz-item">
+      <h3>Q${index + 1}: ${item.question}</h3>
+      ${item.options
+        .map(
+          (option, optionIndex) => `
+      <input type="radio" id="option${optionIndex + 1}-${index}" name="question${index}" value="${option}" onChange="handleOptionChange(${index}, '${option}')" />
+      <label for="option${optionIndex + 1}-${index}">${option}</label><br>
+      `,
+        )
+        .join("")}
+    
+      
+    </div>
+  `;
   })
   .join("");
