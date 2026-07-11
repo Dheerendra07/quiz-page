@@ -9,23 +9,65 @@
 </head>
 <body>
 
-    <div class="card">
-        <h1 id="title">Hello, Let's Play a Simple Quiz</h1>
 
-        <p class="intro">Welcome to the quiz!</p>
+    <div id="welcomeSection">
 
-        <p class="intro">
-            You can select only one option in each question, so choose carefully.
-        </p>
+        <div class="card">
 
-        <div id="quizContainer"></div>
+            <h1>Welcome to Quiz</h1>
 
-       <button id="submitBtn" onclick="submitQuiz()">
-    Submit Quiz
-</button>
+            <p class="intro">
+                Enter your name to start the quiz.
+            </p>
 
-        <p id="result"></p>
-<div id="app"></div>
+            <input
+                type="text"
+                id="userName"
+                placeholder="Enter your name"
+            >
+
+            <br><br>
+
+            <button id="startBtn" onclick="startQuiz()">
+                Start Quiz
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="quizSection">
+
+        <div class="card">
+
+            <h1 id="title">
+                Hello, Let's Play a Simple Quiz
+            </h1>
+
+            <p class="intro">
+                Welcome to the quiz!
+            </p>
+
+            <h2 id="timer">
+                Time Left: 120 seconds
+            </h2>
+
+            <p class="intro">
+                You can select only one option in each question, so choose carefully.
+            </p>
+
+            <div id="quizContainer"></div>
+
+            <button
+                id="submitBtn"
+                onclick="submitQuiz()"
+            >
+                Submit Quiz
+            </button>
+
+            <p id="result"></p>
+
+        </div>
 
     </div>
 
