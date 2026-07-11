@@ -51,7 +51,7 @@ const quizData = [
   },
 ];
 
-function handleOptionChange(questionIndex, selectedOption) {
+function _handleOptionChange(questionIndex, selectedOption) {
   const question = quizData[questionIndex];
   question.selectedOption = selectedOption;
 
@@ -63,6 +63,8 @@ function handleOptionChange(questionIndex, selectedOption) {
 const quizContainer = document.getElementById("quizContainer");
 const result = document.getElementById("result");
 const timer = document.getElementById("timer");
+function _submitQuiz() {
+  let score = 0;
 
 const welcomeSection = document.getElementById("welcomeSection");
 const quizSection = document.getElementById("quizSection");
@@ -132,6 +134,11 @@ function resetQuiz() {
   document.querySelectorAll('input[type="radio"]').forEach(function (radio) {
     radio.checked = false;
   });
+  function _resetQuiz() {
+    // Selected options remove
+    quizData.forEach((question) => {
+      delete question.selectedOption;
+    });
 
   result.innerHTML = "";
 
@@ -195,6 +202,9 @@ function submitQuiz() {
       icon: "warning",
     }).then(function () {
       resetQuiz();
+      confirmButtonText: "Try Again",
+    }).then(() => {
+      _resetQuiz();
     });
   }
 }
@@ -229,6 +239,21 @@ quizContainer.innerHTML = quizData
 
             `;
           })
+          .map(
+            (option, optionIndex) => `
+              <input
+                type="radio"
+                id="option${optionIndex + 1}-${index}"
+                name="question${index}"
+                value="${option}"
+                onchange="_handleOptionChange(${index}, '${option}')"
+              />
+              <label for="option${optionIndex + 1}-${index}">
+                ${option}
+              </label>
+              <br>
+            `,
+          )
           .join("")}
 
     </div>
