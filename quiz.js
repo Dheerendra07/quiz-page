@@ -51,7 +51,7 @@ const quizData = [
   },
 ];
 
-function handleOptionChange(questionIndex, selectedOption) {
+function _handleOptionChange(questionIndex, selectedOption) {
   const question = quizData[questionIndex];
   question.selectedOption = selectedOption;
 
@@ -60,7 +60,7 @@ function handleOptionChange(questionIndex, selectedOption) {
   );
 }
 
-function submitQuiz() {
+function _submitQuiz() {
   let score = 0;
 
   quizData.forEach((item) => {
@@ -69,7 +69,7 @@ function submitQuiz() {
     }
   });
 
-  function resetQuiz() {
+  function _resetQuiz() {
     // Selected options remove
     quizData.forEach((question) => {
       delete question.selectedOption;
@@ -117,7 +117,7 @@ function submitQuiz() {
       icon: "warning",
       confirmButtonText: "Try Again",
     }).then(() => {
-      resetQuiz();
+      _resetQuiz();
     });
   }
 }
@@ -140,7 +140,7 @@ quizContainer.innerHTML = quizData
                 id="option${optionIndex + 1}-${index}"
                 name="question${index}"
                 value="${option}"
-                onchange="handleOptionChange(${index}, '${option}')"
+                onchange="_handleOptionChange(${index}, '${option}')"
               />
               <label for="option${optionIndex + 1}-${index}">
                 ${option}
