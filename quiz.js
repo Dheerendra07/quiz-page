@@ -74,12 +74,16 @@ const selectedCategory = document.getElementById("selectedCategory");
 // Quiz page hidden by default
 quizSection.style.display = "none";
 
+document.getElementById("startBtn").addEventListener("click", startQuiz);
+
+document.getElementById("submitBtn").addEventListener("click", submitQuiz);
+
 let timeLeft = 120;
 let timerInterval;
 let quizSubmitted = false;
 
 function startQuiz() {
-  if (userName.value.trim() == "") {
+  if (userName.value.trim() === "") {
     Swal.fire({
       title: "Enter Your Name",
       text: "Please enter your name before starting the quiz.",
@@ -131,14 +135,6 @@ function startTimer() {
   }, 1000);
 }
 
-function handleOptionChange(questionIndex, selectedOption) {
-  quizData[questionIndex].selectedOption = selectedOption;
-
-  console.log(
-    "Question " + (questionIndex + 1) + " Selected : " + selectedOption,
-  );
-}
-
 function resetQuiz() {
   quizData.forEach(function (question) {
     delete question.selectedOption;
@@ -178,7 +174,7 @@ function submitQuiz() {
     }
   });
 
-  let percentage = (score / quizData.length) * 100;
+  const percentage = (score / quizData.length) * 100;
 
   result.innerHTML = `
         <h2>${userName.value}, Quiz Completed!</h2>
@@ -233,7 +229,7 @@ quizContainer.innerHTML = quizData
                     id="option${optionIndex + 1}-${index}"
                     name="question${index}"
                     value="${option}"
-                    onchange="handleOptionChange(${index}, '${option}')"
+                 
                 >
 
                 <label for="option${optionIndex + 1}-${index}">
@@ -251,3 +247,9 @@ quizContainer.innerHTML = quizData
     `;
   })
   .join("");
+document.querySelectorAll('input[type="radio"]').forEach(function (radio) {
+  radio.addEventListener("change", function () {
+    const questionIndex = Number(this.name.replace("question", ""));
+    handleOptionChange(questionIndex, this.value);
+  });
+});
