@@ -64,7 +64,7 @@ const quizCategories = {
   javascript: javascriptQuestions,
 };
 
-window.handleOptionChange = function (questionIndex, selectedOption) {
+globalThis.handleOptionChange = function (questionIndex, selectedOption) {
   const question = quizData[questionIndex];
   question.selectedOption = selectedOption;
 
