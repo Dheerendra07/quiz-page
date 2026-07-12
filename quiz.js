@@ -60,15 +60,114 @@ function _handleOptionChange(questionIndex, selectedOption) {
   );
 }
 
+<<<<<<< HEAD
 function _submitQuiz() {
+=======
+const quizContainer = document.getElementById("quizContainer");
+const result = document.getElementById("result");
+const timer = document.getElementById("timer");
+
+const welcomeSection = document.getElementById("welcomeSection");
+const quizSection = document.getElementById("quizSection");
+const userName = document.getElementById("userName");
+
+// Quiz page hidden by default
+quizSection.style.display = "none";
+
+let timeLeft = 120;
+let timerInterval;
+let quizSubmitted = false;
+
+function startQuiz() {
+  if (userName.value.trim() == "") {
+    Swal.fire({
+      title: "Enter Your Name",
+      text: "Please enter your name before starting the quiz.",
+      icon: "warning",
+    });
+
+    return;
+  }
+
+  welcomeSection.style.display = "none";
+  quizSection.style.display = "block";
+
+  startTimer();
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+
+  timer.innerHTML = "Time Left: " + timeLeft + " seconds";
+
+  timerInterval = setInterval(function () {
+    timer.innerHTML = "Time Left: " + timeLeft + " seconds";
+
+    timeLeft--;
+
+    if (timeLeft < 0) {
+      clearInterval(timerInterval);
+
+      Swal.fire({
+        title: "Time's Up!",
+        text: "Quiz submitted automatically.",
+        icon: "warning",
+      }).then(function () {
+        submitQuiz();
+      });
+    }
+  }, 1000);
+}
+
+function handleOptionChange(questionIndex, selectedOption) {
+  quizData[questionIndex].selectedOption = selectedOption;
+
+  console.log(
+    "Question " + (questionIndex + 1) + " Selected : " + selectedOption,
+  );
+}
+
+function resetQuiz() {
+  quizData.forEach(function (question) {
+    delete question.selectedOption;
+  });
+
+  document.querySelectorAll('input[type="radio"]').forEach(function (radio) {
+    radio.checked = false;
+  });
+
+  result.innerHTML = "";
+
+  clearInterval(timerInterval);
+
+  timeLeft = 120;
+
+  quizSubmitted = false;
+
+  timer.innerHTML = "Time Left: 120 seconds";
+
+  startTimer();
+}
+
+function submitQuiz() {
+  if (quizSubmitted) {
+    return;
+  }
+
+  quizSubmitted = true;
+
+  clearInterval(timerInterval);
+
+>>>>>>> bed6816 (Implement welcome screen, 2-minute timer, and auto quiz submission)
   let score = 0;
 
-  quizData.forEach((item) => {
+  quizData.forEach(function (item) {
     if (item.selectedOption === item.answer) {
       score++;
     }
   });
 
+<<<<<<< HEAD
   function _resetQuiz() {
     // Selected options remove
     quizData.forEach((question) => {
@@ -87,52 +186,62 @@ function _submitQuiz() {
   console.log("Your total score is:", score);
 
   const percentage = (score / quizData.length) * 100;
+=======
+  let percentage = (score / quizData.length) * 100;
+>>>>>>> bed6816 (Implement welcome screen, 2-minute timer, and auto quiz submission)
 
   result.innerHTML = `
-    <h2>Quiz Completed!</h2>
-    <p>
-      You scored <strong>${score}</strong> out of
-      <strong>${quizData.length}</strong>.
-    </p>
-  `;
+        <h2>${userName.value}, Quiz Completed!</h2>
+
+        <p>
+            You scored
+            <strong>${score}</strong>
+            out of
+            <strong>${quizData.length}</strong>.
+        </p>
+    `;
 
   if (percentage >= 80) {
     Swal.fire({
       title: "Congratulations!",
-      text: `Your score is ${score} out of ${quizData.length}. You passed the quiz!`,
+      text: "Excellent Performance!",
       icon: "success",
-      confirmButtonText: "Awesome!",
     });
   } else if (percentage >= 60) {
     Swal.fire({
       title: "Good Job!",
-      text: `Your score is ${score} out of ${quizData.length}. You did well!`,
+      text: "You did well!",
       icon: "info",
-      confirmButtonText: "Continue",
     });
   } else {
     Swal.fire({
       title: "Keep Trying!",
-      text: `Your score is ${score} out of ${quizData.length}. Better luck next time!`,
+      text: "Better luck next time!",
       icon: "warning",
+<<<<<<< HEAD
       confirmButtonText: "Try Again",
     }).then(() => {
       _resetQuiz();
+=======
+    }).then(function () {
+      resetQuiz();
+>>>>>>> bed6816 (Implement welcome screen, 2-minute timer, and auto quiz submission)
     });
   }
 }
-const quizContainer = document.getElementById("quizContainer");
-const result = document.getElementById("result");
-
-console.log("Quiz Data:", quizContainer);
 
 quizContainer.innerHTML = quizData
-  .map((item, index) => {
+  .map(function (item, index) {
     return `
-      <div class="quiz-item">
-        <h3>Q${index + 1}: ${item.question}</h3>
+
+    <div class="quiz-item">
+
+        <h3>
+            Q${index + 1}: ${item.question}
+        </h3>
 
         ${item.options
+<<<<<<< HEAD
           .map(
             (option, optionIndex) => `
               <input
@@ -148,8 +257,31 @@ quizContainer.innerHTML = quizData
               <br>
             `,
           )
+=======
+          .map(function (option, optionIndex) {
+            return `
+
+                <input
+                    type="radio"
+                    id="option${optionIndex + 1}-${index}"
+                    name="question${index}"
+                    value="${option}"
+                    onchange="handleOptionChange(${index}, '${option}')"
+                >
+
+                <label for="option${optionIndex + 1}-${index}">
+                    ${option}
+                </label>
+
+                <br>
+
+            `;
+          })
+>>>>>>> bed6816 (Implement welcome screen, 2-minute timer, and auto quiz submission)
           .join("")}
-      </div>
+
+    </div>
+
     `;
   })
   .join("");
