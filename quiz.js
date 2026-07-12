@@ -1,3 +1,7 @@
+import { htmlQuestions } from "./Data/htmlQuestions.js";
+import { cssQuestions } from "./Data/cssQuestions.js";
+import { javascriptQuestions } from "./Data/javaScript_Questions.js";
+
 // const quizData = [
 //   {
 //     question: "What is the capital of India?",
@@ -60,14 +64,14 @@ const quizCategories = {
   javascript: javascriptQuestions,
 };
 
-function handleOptionChange(questionIndex, selectedOption) {
+window.handleOptionChange = function (questionIndex, selectedOption) {
   const question = quizData[questionIndex];
   question.selectedOption = selectedOption;
 
   console.log(
     `Question ${questionIndex + 1} selected option: ${selectedOption}`,
   );
-}
+};
 
 const quizContainer = document.getElementById("quizContainer");
 const result = document.getElementById("result");

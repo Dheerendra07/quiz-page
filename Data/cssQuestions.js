@@ -1,1 +1,1 @@
-const cssQuestions = [];
+export const cssQuestions = [];
