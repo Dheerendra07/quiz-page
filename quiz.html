@@ -15,6 +15,7 @@
         <div class="card">
 
             <h1>Welcome to Quiz</h1>
+            
 
 <<<<<<< HEAD
        <button id="submitBtn" onclick="_submitQuiz()">
@@ -33,6 +34,21 @@
             >
 
             <br><br>
+
+
+
+<label for="category" class="category-label">
+    Select Quiz Category
+</label>
+
+<select id="category">
+    <option value="">-- Select Category --</option>
+    <option value="html">HTML</option>
+    <option value="css">CSS</option>
+    <option value="javascript">JavaScript</option>
+</select>
+
+<br><br>
 
             <button id="startBtn" onclick="startQuiz()">
                 Start Quiz
@@ -53,6 +69,8 @@
             <p class="intro">
                 Welcome to the quiz!
             </p>
+
+            <p id="selectedCategory"></p>
 
             <h2 id="timer">
                 Time Left: 120 seconds
