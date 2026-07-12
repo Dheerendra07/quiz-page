@@ -1,55 +1,64 @@
-const quizData = [
-  {
-    question: "What is the capital of India?",
-    options: ["New Delhi", "Mumbai", "Kolkata", "Chennai"],
-    answer: "New Delhi",
-  },
-  {
-    question: "What is the capital of Uttar Pradesh?",
-    options: ["Lucknow", "Kanpur", "Varanasi", "Agra"],
-    answer: "Lucknow",
-  },
-  {
-    question: "What is the capital of Maharashtra?",
-    options: ["Mumbai", "Pune", "Nagpur", "Thane"],
-    answer: "Mumbai",
-  },
-  {
-    question: "What is the capital of Rajasthan?",
-    options: ["Ajmer", "Jaipur", "Jodhpur", "Udaipur"],
-    answer: "Jaipur",
-  },
-  {
-    question: "What is the capital of Bihar?",
-    options: ["Patna", "Gaya", "Muzaffarpur", "Bhagalpur"],
-    answer: "Patna",
-  },
-  {
-    question: "What is the capital of Gujarat?",
-    options: ["Ahmedabad", "Surat", "Gandhinagar", "Rajkot"],
-    answer: "Gandhinagar",
-  },
-  {
-    question: "What is the capital of Punjab?",
-    options: ["Ludhiana", "Amritsar", "Chandigarh", "Patiala"],
-    answer: "Chandigarh",
-  },
-  {
-    question: "What is the capital of Assam?",
-    options: ["Dibrugarh", "Silchar", "Dispur", "Tezpur"],
-    answer: "Dispur",
-  },
-  {
-    question: "What is the capital of Tamil Nadu?",
-    options: ["Madurai", "Coimbatore", "Chennai", "Salem"],
-    answer: "Chennai",
-  },
-  {
-    question: "What is the capital of West Bengal?",
-    options: ["Kolkata", "Darjeeling", "Siliguri", "Durgapur"],
-    answer: "Kolkata",
-  },
-];
+// const quizData = [
+//   {
+//     question: "What is the capital of India?",
+//     options: ["New Delhi", "Mumbai", "Kolkata", "Chennai"],
+//     answer: "New Delhi",
+//   },
+//   {
+//     question: "What is the capital of Uttar Pradesh?",
+//     options: ["Lucknow", "Kanpur", "Varanasi", "Agra"],
+//     answer: "Lucknow",
+//   },
+//   {
+//     question: "What is the capital of Maharashtra?",
+//     options: ["Mumbai", "Pune", "Nagpur", "Thane"],
+//     answer: "Mumbai",
+//   },
+//   {
+//     question: "What is the capital of Rajasthan?",
+//     options: ["Ajmer", "Jaipur", "Jodhpur", "Udaipur"],
+//     answer: "Jaipur",
+//   },
+//   {
+//     question: "What is the capital of Bihar?",
+//     options: ["Patna", "Gaya", "Muzaffarpur", "Bhagalpur"],
+//     answer: "Patna",
+//   },
+//   {
+//     question: "What is the capital of Gujarat?",
+//     options: ["Ahmedabad", "Surat", "Gandhinagar", "Rajkot"],
+//     answer: "Gandhinagar",
+//   },
+//   {
+//     question: "What is the capital of Punjab?",
+//     options: ["Ludhiana", "Amritsar", "Chandigarh", "Patiala"],
+//     answer: "Chandigarh",
+//   },
+//   {
+//     question: "What is the capital of Assam?",
+//     options: ["Dibrugarh", "Silchar", "Dispur", "Tezpur"],
+//     answer: "Dispur",
+//   },
+//   {
+//     question: "What is the capital of Tamil Nadu?",
+//     options: ["Madurai", "Coimbatore", "Chennai", "Salem"],
+//     answer: "Chennai",
+//   },
+//   {
+//     question: "What is the capital of West Bengal?",
+//     options: ["Kolkata", "Darjeeling", "Siliguri", "Durgapur"],
+//     answer: "Kolkata",
+//   },
+// ];
+
+let quizData = [];
+const quizCategories = {
+  html: htmlQuestions,
+
+  css: cssQuestions,
+
+  javascript: javascriptQuestions,
+};
 
 function handleOptionChange(questionIndex, selectedOption) {
   const question = quizData[questionIndex];
@@ -82,6 +91,8 @@ let timeLeft = 120;
 let timerInterval;
 let quizSubmitted = false;
 
+let selectedQuizCategory = "";
+
 function startQuiz() {
   if (userName.value.trim() === "") {
     Swal.fire({
@@ -103,6 +114,20 @@ function startQuiz() {
     return;
   }
 
+  selectedQuizCategory = category.value;
+  quizData = quizCategories[selectedQuizCategory];
+
+  if (quizData.length === 0) {
+    Swal.fire({
+      title: "Coming Soon!",
+      text: "Questions for this category will be added soon.",
+      icon: "info",
+    });
+
+    return;
+  }
+
+  renderQuiz();
   selectedCategory.textContent = `Category: ${category.options[category.selectedIndex].text}`;
 
   welcomeSection.style.display = "none";
@@ -210,46 +235,36 @@ function submitQuiz() {
   }
 }
 
-quizContainer.innerHTML = quizData
-  .map(function (item, index) {
-    return `
+function renderQuiz() {
+  quizContainer.innerHTML = quizData
+    .map(function (item, index) {
+      return `
+        <div class="quiz-item">
 
-    <div class="quiz-item">
+          <h3>Q${index + 1}: ${item.question}</h3>
 
-        <h3>
-            Q${index + 1}: ${item.question}
-        </h3>
-
-        ${item.options
-          .map(function (option, optionIndex) {
-            return `
-
+          ${item.options
+            .map(function (option, optionIndex) {
+              return `
                 <input
-                    type="radio"
-                    id="option${optionIndex + 1}-${index}"
-                    name="question${index}"
-                    value="${option}"
-                 
+                  type="radio"
+                  id="option${optionIndex + 1}-${index}"
+                  name="question${index}"
+                  value="${option}"
+                  onchange="handleOptionChange(${index}, '${option}')"
                 >
 
                 <label for="option${optionIndex + 1}-${index}">
-                    ${option}
+                  ${option}
                 </label>
 
                 <br>
+              `;
+            })
+            .join("")}
 
-            `;
-          })
-          .join("")}
-
-    </div>
-
-    `;
-  })
-  .join("");
-document.querySelectorAll('input[type="radio"]').forEach(function (radio) {
-  radio.addEventListener("change", function () {
-    const questionIndex = Number(this.name.replace("question", ""));
-    handleOptionChange(questionIndex, this.value);
-  });
-});
+        </div>
+      `;
+    })
+    .join("");
+}
