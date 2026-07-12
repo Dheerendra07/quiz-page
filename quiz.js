@@ -51,7 +51,7 @@ const quizData = [
   },
 ];
 
-function _handleOptionChange(questionIndex, selectedOption) {
+function handleOptionChange(questionIndex, selectedOption) {
   const question = quizData[questionIndex];
   question.selectedOption = selectedOption;
 
@@ -60,9 +60,6 @@ function _handleOptionChange(questionIndex, selectedOption) {
   );
 }
 
-<<<<<<< HEAD
-function _submitQuiz() {
-=======
 const quizContainer = document.getElementById("quizContainer");
 const result = document.getElementById("result");
 const timer = document.getElementById("timer");
@@ -70,6 +67,9 @@ const timer = document.getElementById("timer");
 const welcomeSection = document.getElementById("welcomeSection");
 const quizSection = document.getElementById("quizSection");
 const userName = document.getElementById("userName");
+
+const category = document.getElementById("category");
+const selectedCategory = document.getElementById("selectedCategory");
 
 // Quiz page hidden by default
 quizSection.style.display = "none";
@@ -88,6 +88,18 @@ function startQuiz() {
 
     return;
   }
+
+  if (category.value === "") {
+    Swal.fire({
+      title: "Select Category",
+      text: "Please select a quiz category.",
+      icon: "warning",
+    });
+
+    return;
+  }
+
+  selectedCategory.textContent = `Category: ${category.options[category.selectedIndex].text}`;
 
   welcomeSection.style.display = "none";
   quizSection.style.display = "block";
@@ -158,7 +170,6 @@ function submitQuiz() {
 
   clearInterval(timerInterval);
 
->>>>>>> bed6816 (Implement welcome screen, 2-minute timer, and auto quiz submission)
   let score = 0;
 
   quizData.forEach(function (item) {
@@ -167,28 +178,7 @@ function submitQuiz() {
     }
   });
 
-<<<<<<< HEAD
-  function _resetQuiz() {
-    // Selected options remove
-    quizData.forEach((question) => {
-      delete question.selectedOption;
-    });
-
-    // Radio buttons uncheck
-    document.querySelectorAll('input[type="radio"]').forEach((radio) => {
-      radio.checked = false;
-    });
-
-    // Result clear
-    result.innerHTML = "";
-  }
-
-  console.log("Your total score is:", score);
-
-  const percentage = (score / quizData.length) * 100;
-=======
   let percentage = (score / quizData.length) * 100;
->>>>>>> bed6816 (Implement welcome screen, 2-minute timer, and auto quiz submission)
 
   result.innerHTML = `
         <h2>${userName.value}, Quiz Completed!</h2>
@@ -218,14 +208,8 @@ function submitQuiz() {
       title: "Keep Trying!",
       text: "Better luck next time!",
       icon: "warning",
-<<<<<<< HEAD
-      confirmButtonText: "Try Again",
-    }).then(() => {
-      _resetQuiz();
-=======
     }).then(function () {
       resetQuiz();
->>>>>>> bed6816 (Implement welcome screen, 2-minute timer, and auto quiz submission)
     });
   }
 }
@@ -241,23 +225,6 @@ quizContainer.innerHTML = quizData
         </h3>
 
         ${item.options
-<<<<<<< HEAD
-          .map(
-            (option, optionIndex) => `
-              <input
-                type="radio"
-                id="option${optionIndex + 1}-${index}"
-                name="question${index}"
-                value="${option}"
-                onchange="_handleOptionChange(${index}, '${option}')"
-              />
-              <label for="option${optionIndex + 1}-${index}">
-                ${option}
-              </label>
-              <br>
-            `,
-          )
-=======
           .map(function (option, optionIndex) {
             return `
 
@@ -277,7 +244,6 @@ quizContainer.innerHTML = quizData
 
             `;
           })
->>>>>>> bed6816 (Implement welcome screen, 2-minute timer, and auto quiz submission)
           .join("")}
 
     </div>
