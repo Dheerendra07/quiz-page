@@ -186,6 +186,28 @@ function resetQuiz() {
   startTimer();
 }
 
+function goToHome() {
+  quizData.forEach(function (question) {
+    delete question.selectedOption;
+  });
+
+  document.querySelectorAll('input[type="radio"]').forEach(function (radio) {
+    radio.checked = false;
+  });
+
+  clearInterval(timerInterval);
+
+  timeLeft = 120;
+  quizSubmitted = false;
+
+  timer.innerHTML = "Time Left: 120 seconds";
+
+  result.innerHTML = "";
+
+  welcomeSection.style.display = "block";
+  quizSection.style.display = "none";
+}
+
 function submitQuiz() {
   if (quizSubmitted) {
     return;
@@ -205,38 +227,64 @@ function submitQuiz() {
 
   const percentage = (score / quizData.length) * 100;
 
-  result.innerHTML = `
-        <h2>${userName.value}, Quiz Completed!</h2>
-
-        <p>
-            You scored
-            <strong>${score}</strong>
-            out of
-            <strong>${quizData.length}</strong>.
-        </p>
-    `;
+  let title = "";
+  let message = "";
+  let icon = "";
 
   if (percentage >= 80) {
-    Swal.fire({
-      title: "Congratulations!",
-      text: "Excellent Performance!",
-      icon: "success",
-    });
+    title = "Congratulations!";
+    message = "Excellent Performance!";
+    icon = "success";
   } else if (percentage >= 60) {
-    Swal.fire({
-      title: "Good Job!",
-      text: "You did well!",
-      icon: "info",
-    });
+    title = "Good Job!";
+    message = "You did well!";
+    icon = "info";
   } else {
-    Swal.fire({
-      title: "Keep Trying!",
-      text: "Better luck next time!",
-      icon: "warning",
-    }).then(function () {
-      resetQuiz();
-    });
+    title = "Keep Trying!";
+    message = "Better luck next time!";
+    icon = "warning";
   }
+
+  Swal.fire({
+    title: title,
+    icon: icon,
+
+    html: `
+      <h3>${userName.value}, Quiz Completed! 🎉</h3>
+
+      <p>
+        You scored <strong>${score}</strong> out of
+        <strong>${quizData.length}</strong>
+      </p>
+
+      <p>
+        Percentage :
+        <strong>${percentage.toFixed(0)}%</strong>
+      </p>
+
+      <p>${message}</p>
+    `,
+
+    confirmButtonText: "OK",
+  }).then(function () {
+    Swal.fire({
+      title: "What's Next?",
+      text: "Would you like to retake this quiz?",
+      icon: "question",
+
+      showCancelButton: true,
+
+      confirmButtonText: "🔄 Retake",
+
+      cancelButtonText: "➡️ Next",
+    }).then(function (response) {
+      if (response.isConfirmed) {
+        resetQuiz();
+      } else {
+        goToHome();
+      }
+    });
+  });
 }
 
 function renderQuiz() {
