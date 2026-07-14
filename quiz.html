@@ -1,98 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Quiz</title>
-
-    <link rel="stylesheet" href="quiz.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Quiz</title>
+  <link rel="stylesheet" href="quiz.css">
 </head>
 <body>
 
-
     <div id="welcomeSection">
-
         <div class="card">
-
-            <h1>Welcome to Quiz</h1>
-            
-
-<p class="intro">
-    Enter your name to start the quiz.
-</p>
-
-            <input
-                type="text"
-                id="userName"
-                placeholder="Enter your name"
-            >
-
-            <br><br>
-
-
-
-<label for="category" class="category-label">
-    Select Quiz Category
-</label>
-
-<select id="category">
-    <option value="">-- Select Category --</option>
-    <option value="html">HTML</option>
-    <option value="css">CSS</option>
-    <option value="javascript">JavaScript</option>
-</select>
-
-<br><br>
-
-          <button id="startBtn">
-    Start Quiz
-</button>
-
+          <h1>Welcome to Quiz</h1>
+          <p class="intro">Enter your name to start the quiz.</p>
+      
+          <input type="text" id="userName" placeholder="Enter your name">
+      
+          <br><br>
+      
+          <label for="category">Select Quiz Category</label>
+          <select id="category">
+            <option value="">-- Select Category --</option>
+            <option value="html">HTML</option>
+            <option value="css">CSS</option>
+            <option value="javascript">JavaScript</option>
+          </select>
+      
+          <br><br>
+          <button id="startBtn">Start Quiz</button>
         </div>
-
-    </div>
-
-    <div id="quizSection">
-
+      </div>
+      
+      <div id="quizSection" style="display:none;">
         <div class="card">
-
-            <h1 id="title">
-                Hello, Let's Play a Simple Quiz
-            </h1>
-
-            <p class="intro">
-                Welcome to the quiz!
-            </p>
-
-            <p id="selectedCategory"></p>
-
-            <h2 id="timer">
-                Time Left: 120 seconds
-            </h2>
-
-            <p class="intro">
-                You can select only one option in each question, so choose carefully.
-            </p>
-
-            <div id="quizContainer"></div>
-
-       <button id="submitBtn">
-    Submit Quiz
-</button>
-
-            <p id="result"></p>
-
+          <h1 id="title">Hello,<span id="userNameDisplay"></span> Let's Play a Simple Quiz</h1>
+          <p id="selectedCategory"></p>
+          <h2 id="timer">Time Left: 120 seconds</h2>
+          <div id="quizContainer"></div>
+          <button id="submitBtn">Submit Quiz</button>
+          <p id="result"></p>
         </div>
+      </div>
+      
 
+  <!-- Quiz Section -->
+  <div id="quizSection">
+    <div class="card">
+      <h1 id="title">Hello, Let's Play a Simple Quiz</h1>
+      <p class="intro">Welcome to the quiz!</p>
+      <p id="selectedCategory"></p>
+
+      <h2 id="timer">Time Left: 120 seconds</h2>
+      <p class="intro">You can select only one option in each question, so choose carefully.</p>
+
+      <div id="quizContainer"></div>
+
+      <button id="submitBtn">Submit Quiz</button>
+      <p id="result"></p>
     </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script src="data/htmlQuestions.js"></script>
-<script src="data/cssQuestions.js"></script>
-<script src="data/javaScript_Questions.js"></script>
-
-<script type="module" src="quiz.js"></script>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="data/htmlQuestions.js"></script>
+  <script src="data/cssQuestions.js"></script>
+  <script src="data/javaScript_Questions.js"></script>
+  <script type="module" src="quiz.js"></script>
 
 </body>
 </html>
