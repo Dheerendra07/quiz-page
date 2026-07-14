@@ -23,7 +23,6 @@ const timer = document.getElementById("timer");
 const welcomeSection = document.getElementById("welcomeSection");
 const quizSection = document.getElementById("quizSection");
 const userName = document.getElementById("userName");
-const submitBtn = document.getElementById("submitBtn");
 
 quizSection.style.display = "none"; // hide quiz section initially
 
@@ -105,8 +104,8 @@ function submitQuiz() {
   quizSubmitted = true;
   clearInterval(timerInterval);
 
-  let score = quizData.filter(q => q.selectedOption === q.answer).length;
-  let percentage = (score / quizData.length) * 100;
+  const score = quizData.filter(q => q.selectedOption === q.answer).length;
+  const percentage = (score / quizData.length) * 100;
 
   result.innerHTML = `
     <h2>${userName.value}, Quiz Completed!</h2>
